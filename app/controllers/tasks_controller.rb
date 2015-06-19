@@ -24,8 +24,7 @@ class TasksController < ApplicationController
 
   # POST /tasks
   # POST /tasks.json
-  def create
-    debugger
+  def create   
     project = Project.find(params[:task][:project_id])   
     @task = project.build_task(task_params)
 
@@ -42,8 +41,7 @@ class TasksController < ApplicationController
 
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
-  def update
-    debugger
+  def update    
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
