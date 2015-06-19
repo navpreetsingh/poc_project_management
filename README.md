@@ -1,0 +1,1 @@
+POC of project management system by customizing the funtionality of redmine

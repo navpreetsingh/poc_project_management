@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Task:</strong>
+  <%= @to_do_list.task_id %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @to_do_list.content %>
+</p>
+
+<p>
+  <strong>Priority:</strong>
+  <%= @to_do_list.priority %>
+</p>
+
+<p>
+  <strong>Estimated hours:</strong>
+  <%= @to_do_list.estimated_hours %>
+</p>
+
+<%= link_to 'Edit', edit_to_do_list_path(@to_do_list) %> |
+<%= link_to 'Back', to_do_lists_path %>

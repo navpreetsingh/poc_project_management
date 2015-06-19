@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  task_id: MyString
+  content: MyText
+  priority: 1
+  estimated_hours: 1
+
+two:
+  task_id: MyString
+  content: MyText
+  priority: 1
+  estimated_hours: 1

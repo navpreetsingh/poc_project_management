@@ -1,0 +1,33 @@
+<%= form_for(@to_do_list) do |f| %>
+  <% if @to_do_list.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@to_do_list.errors.count, "error") %> prohibited this to_do_list from being saved:</h2>
+
+      <ul>
+      <% @to_do_list.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :task_id %><br>
+    <%= f.text_field :task_id %>
+  </div>
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_area :content %>
+  </div>
+  <div class="field">
+    <%= f.label :priority %><br>
+    <%= f.number_field :priority %>
+  </div>
+  <div class="field">
+    <%= f.label :estimated_hours %><br>
+    <%= f.number_field :estimated_hours %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

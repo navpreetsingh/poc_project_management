@@ -1,0 +1,55 @@
+<%- model_class = User -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>      
+      <th><%= model_class.human_attribute_name(:email) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>      
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>        
+        <td><%= link_to user.email, user_path(user) %></td>
+        <td><%= user.name %></td>        
+        <td>
+          <%= link_to "Remove", "#", :class => 'btn btn-default btn-xs' %>         
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+
+<h3>Add More Members</h3>
+<%= form_tag add_user_users_path do %> 
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>      
+        <th><%= model_class.human_attribute_name(:email) %></th>
+        <th><%= model_class.human_attribute_name(:name) %></th>       
+      </tr>
+    </thead>
+    <tbody>
+      <% @left_users.each do |user| %>
+        <tr>        
+          <td><%= check_box_tag "user_id[]", user.id %></td>
+          <td><%= link_to user.email, user_path(user) %></td>
+          <td><%= user.name %></td>                
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= submit_tag "Add", class: "btn btn-primary", id: "submit_button" %>
+<% end %>
