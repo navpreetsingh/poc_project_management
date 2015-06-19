@@ -61,6 +61,13 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def project_tasks    
+    id = params[:id]
+    @project = Project.find(id)    
+    @tasks = @project.tasks
+    render 'tasks/index'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project

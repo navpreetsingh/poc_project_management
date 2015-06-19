@@ -14,6 +14,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
+    @project_id = params[:project_id]
     @task = Task.new
   end
 
@@ -24,7 +25,9 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(task_params)
+    debugger
+    project = Project.find(params[:task][:project_id])   
+    @task = project.build_task(task_params)
 
     respond_to do |format|
       if @task.save
@@ -40,6 +43,7 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
+    debugger
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
@@ -59,7 +63,7 @@ class TasksController < ApplicationController
       format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
+  end  
 
   private
     # Use callbacks to share common setup or constraints between actions.

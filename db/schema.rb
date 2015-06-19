@@ -83,6 +83,14 @@ ActiveRecord::Schema.define(version: 20150617095350) do
 
   add_index "tasks", ["project_id"], name: "index_tasks_on_project_id", using: :btree
 
+  create_table "tasks_users", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "task_id"
+  end
+
+  add_index "tasks_users", ["task_id"], name: "index_tasks_users_on_task_id", using: :btree
+  add_index "tasks_users", ["user_id"], name: "index_tasks_users_on_user_id", using: :btree
+
   create_table "to_do_lists", force: :cascade do |t|
     t.integer  "task_id"
     t.text     "content"
@@ -102,13 +110,5 @@ ActiveRecord::Schema.define(version: 20150617095350) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-
-  create_table "users_tasks", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "task_id"
-  end
-
-  add_index "users_tasks", ["task_id"], name: "index_users_tasks_on_task_id", using: :btree
-  add_index "users_tasks", ["user_id"], name: "index_users_tasks_on_user_id", using: :btree
 
 end

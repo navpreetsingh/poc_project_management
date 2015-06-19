@@ -11,18 +11,20 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :milestones do
-    resource :tasks
-  end
+  resources :milestones
 
   resources :tasks do
-    resources :to_do_lists
+    resources :to_do_lists, shallow: true
   end
 
   resources :projects do
-    resources :tasks 
+    resources :tasks , shallow: true 
+    member do
+      get "project_tasks"
+    end     
   end
 
+  resources :to_do_lists
   # devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

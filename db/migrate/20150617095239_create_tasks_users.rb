@@ -1,6 +1,6 @@
-class CreateUsersTasks < ActiveRecord::Migration
+class CreateTasksUsers < ActiveRecord::Migration
   def change
-    create_table :users_tasks, id: false do |t|
+    create_table :tasks_users, id: false do |t|
       t.belongs_to :user, index: true
       t.belongs_to :task, index: true
     end

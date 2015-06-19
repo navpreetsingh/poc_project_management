@@ -30,7 +30,7 @@
     </div>
 
     <div class="col-xs-3">
-      <%= link_to "Tasks of the project", project_tasks_path(@project),:class => 'btn btn-default' %>
+      <%= link_to "Tasks of the project", project_tasks_project_path,:class => 'btn btn-default' %>
       <br>
       <br>
       <%= link_to "Member of the project",  follower_users_path(member: 1, project_id: @project.id), :class => 'btn btn-default' %>
