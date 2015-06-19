@@ -16,9 +16,10 @@
   <% end %>
 
   <div class="control-group">
-    <%= f.label :task_id, :class => 'control-label' %>
+    
     <div class="controls">
-      <%= f.text_field :task_id, :class => 'form-control' %>
+      <%= f.hidden_field :task_id, :class => 'form-control', :value => 
+      @task_id %>
     </div>
     <%= error_span(@to_do_list[:task_id]) %>
   </div>

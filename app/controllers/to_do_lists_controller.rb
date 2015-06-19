@@ -3,8 +3,9 @@ class ToDoListsController < ApplicationController
 
   # GET /to_do_lists
   # GET /to_do_lists.json
-  def index
-    @to_do_lists = ToDoList.all
+  def index    
+    task = Task.find(params[:task_id])
+    @to_do_lists = task.to_do_lists
   end
 
   # GET /to_do_lists/1
@@ -14,6 +15,7 @@ class ToDoListsController < ApplicationController
 
   # GET /to_do_lists/new
   def new
+    @task_id = params[:task_id]
     @to_do_list = ToDoList.new
   end
 
@@ -23,8 +25,9 @@ class ToDoListsController < ApplicationController
 
   # POST /to_do_lists
   # POST /to_do_lists.json
-  def create
-    @to_do_list = ToDoList.new(to_do_list_params)
+  def create    
+    task = Task.find(params[:to_do_list][:task_id])
+    @to_do_list = task.to_do_lists.new(to_do_list_params)
 
     respond_to do |format|
       if @to_do_list.save
