@@ -24,6 +24,4 @@ test:
   <<: *default
   database: poc_pm_test
 
-production:
-  <<: *default
-  database: poc_pm_production
+
