@@ -1,33 +1,54 @@
-<%= form_for(@to_do_list) do |f| %>
-  <% if @to_do_list.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@to_do_list.errors.count, "error") %> prohibited this to_do_list from being saved:</h2>
+<%= form_for @to_do_list, :html => { :class => "form-horizontal to_do_list" } do |f| %>
 
-      <ul>
-      <% @to_do_list.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if @to_do_list.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@to_do_list.errors.count, "error") %> prohibited this to_do_list from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @to_do_list.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :task_id %><br>
-    <%= f.text_field :task_id %>
+  <div class="control-group">
+    <%= f.label :task_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :task_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@to_do_list[:task_id]) %>
   </div>
-  <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
+  <div class="control-group">
+    <%= f.label :content, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :content, :class => 'form-control' %>
+    </div>
+    <%= error_span(@to_do_list[:content]) %>
   </div>
-  <div class="field">
-    <%= f.label :priority %><br>
-    <%= f.number_field :priority %>
+  <div class="control-group">
+    <%= f.label :priority, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :priority, :class => 'form-control' %>
+    </div>
+    <%= error_span(@to_do_list[:priority]) %>
   </div>
-  <div class="field">
-    <%= f.label :estimated_hours %><br>
-    <%= f.number_field :estimated_hours %>
+  <div class="control-group">
+    <%= f.label :estimated_hours, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :estimated_hours, :class => 'form-control' %>
+    </div>
+    <%= error_span(@to_do_list[:estimated_hours]) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+<br>
+<br>
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            to_do_lists_path, :class => 'btn btn-default' %>
+
 <% end %>

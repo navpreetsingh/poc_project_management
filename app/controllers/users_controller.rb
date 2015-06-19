@@ -62,28 +62,42 @@ class UsersController < ApplicationController
   end
 
   def follower
-    session[:project_id] = params[:project_id] 
-    project_id = params[:project_id]      
-    if params[:member].present?      
-      @users = User.where(id: ProjectsUser.where(project_id: project_id, member:true).pluck(:user_id))
+    if params[":project_id"].present?
+      session[:project_id] = params[:project_id] 
+      project_id = params[:project_id]      
+      if params[:member].present?      
+        @users = User.where(id: ProjectsUser.where(project_id: project_id, member:true).pluck(:user_id))
+      else
+        @users = User.where(id: ProjectsUser.where(project_id: project_id, member:false).pluck(:user_id))
+      end
+      @left_users = User.where.not(id: ProjectsUser.where(project_id: project_id).pluck(:user_id))
     else
-      @users = User.where(id: ProjectsUser.where(project_id: project_id, member:false).pluck(:user_id))
+      milestone_id = params[:milestone_id]
+      session[:milestone_id] = milestone_id      
+      @users = Milestone.find(milestone_id).users
+      @left_users = User.where.not(id: @users.pluck(:id))
     end
-    @left_users = User.where.not(id: ProjectsUser.where(project_id: project_id).pluck(:user_id))    
   end
 
   def add_user    
-    project_id = session[:project_id]
-    user_ids = params[:user_id]    
-    if request.env["HTTP_REFERER"].include? ("member")
-      user_ids.each do |uid|
-        ProjectsUser.create(project_id: project_id, user_id: uid, member: true)
+    if request.session[:project_id].present?
+      project_id = session[:project_id]
+      user_ids = params[:user_id]    
+      if request.env["HTTP_REFERER"].include? ("member")
+        user_ids.each do |uid|
+          ProjectsUser.create(project_id: project_id, user_id: uid, member: true)
+        end
+      else
+        user_ids.each do |uid|
+          ProjectsUser.create(project_id: project_id, user_id: uid)
+        end
       end
     else
-      user_ids.each do |uid|
-        ProjectsUser.create(project_id: project_id, user_id: uid)
-      end
-    end    
+      milestone_id = session[:milestone_id]
+      user_ids = params[:user_id]
+      milestone = Milestone.find(milestone_id)      
+      milestone.users << User.where(id: user_ids)      
+    end
     redirect_to :back
   end
 
