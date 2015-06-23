@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :discussions
+
   get "welcome/index"
 
   get "welcome/update_database"

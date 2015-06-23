@@ -1,0 +1,28 @@
+<% user_name = User.all.pluck(:name, :id) %>
+<%= form_for @discussion, :html => { :class => "form-horizontal discussion" } do |f| %>
+
+    <% if @discussion.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@discussion.errors.count, "error") %> prohibited this discussion from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @discussion.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  
+  <div class="control-group" style="display: inline-flex;width: 100%;">
+    <%= f.label :user, :class => 'control-label' %>
+    <%= f.select :user_id, options_for_select(user_name), prompt: "Select User", :class => 'form-control' %>
+    <%= f.label :content, :class => 'control-label' %>
+    <%= f.text_field :content, :class => 'form-control', :style => "width: 70%" %>
+    <%# debugger %>
+    <%= f.hidden_field :main_discussion_id, :value => main_discussion_id %>
+    <%= f.submit "Send", :class => 'btn btn-primary' %>
+  </div>    
+<% end %>
